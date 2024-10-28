@@ -1,17 +1,20 @@
 import requests
 import json
-
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from get_clasifications import get_clasifications
 from get_matches import get_matches
 
-# from selenium.webdriver.common.keys import Keys
+options = Options()
+options.add_argument("--disable-dev-shm-usage")  # Evita problemas de memoria compartida
+options.add_argument("--no-sandbox")  # Necesario si se ejecuta como root
+options.add_argument("--headless")  # Ejecuta Chrome en modo sin cabeza (opcional)
 
 URL = 'https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=1d72f30d4a95b410VgnVCM2000000c205a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&vgnextfmt=default#two'
 
 # Configura el navegador (asegúrate de tener el controlador adecuado, como chromedriver)
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(options=options)
 
 # Abre la página web
 driver.get(URL)
