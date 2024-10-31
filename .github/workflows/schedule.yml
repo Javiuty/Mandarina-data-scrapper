@@ -5,6 +5,8 @@ on:
     - cron: "0 12 * * *"
   workflow_dispatch:
 
+permissions: write-all
+
 jobs:
   ejecutar-script:
     runs-on: ubuntu-latest
@@ -27,9 +29,23 @@ jobs:
         run: |
           python scrapper.py
 
-      - name: Update JSON file
+      - name: Update date.json
         uses: test-room-7/action-update-file@v1
         with:
           file-path: date.json
           commit-msg: "Actualización automática de date.json"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update clasificaciones.csv
+        uses: test-room-7/action-update-file@v1
+        with:
+          file-path: clasificaciones.csv
+          commit-msg: "Actualización automática de clasificaciones.csv"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update partidos.csv
+        uses: test-room-7/action-update-file@v1
+        with:
+          file-path: partidos.csv
+          commit-msg: "Actualización automática de partidos.csv"
           github-token: ${{ secrets.GITHUB_TOKEN }}
