@@ -36,16 +36,16 @@ jobs:
           commit-msg: "Actualización automática de date.json"
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update clasificaciones.csv
+      - name: Update clasificaciones.json
         uses: test-room-7/action-update-file@v1
         with:
-          file-path: clasificaciones.csv
-          commit-msg: "Actualización automática de clasificaciones.csv"
+          file-path: clasificaciones.json
+          commit-msg: "Actualización automática de clasificaciones.json"
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update partidos.csv
+      - name: Update partidos.json
         uses: test-room-7/action-update-file@v1
         with:
-          file-path: partidos.csv
-          commit-msg: "Actualización automática de partidos.csv"
+          file-path: partidos.json
+          commit-msg: "Actualización automática de partidos.json"
           github-token: ${{ secrets.GITHUB_TOKEN }}
