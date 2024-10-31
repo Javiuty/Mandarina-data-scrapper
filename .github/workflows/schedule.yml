@@ -26,3 +26,10 @@ jobs:
       - name: Run script
         run: |
           python scrapper.py
+
+      - name: Update JSON file
+        uses: test-room-7/action-update-file@v1
+        with:
+          file-path: date.json
+          commit-msg: "Actualización automática de date.json"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
