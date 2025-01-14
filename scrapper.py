@@ -30,37 +30,35 @@ else:
 with open('date.json', 'r', encoding='utf-8') as json_file:
     datos = json.load(json_file)
 
-if (datos['date'] == date):
-    print('No hacemos nada')
-else:
-  # Guardamos resultados en un json
-  with open('date.json', 'w', encoding='utf-8') as json_file:
-    json.dump({ 'date': date }, json_file, ensure_ascii=False, indent=2)
+
+# Guardamos resultados en un json
+with open('date.json', 'w', encoding='utf-8') as json_file:
+  json.dump({ 'date': date }, json_file, ensure_ascii=False, indent=2)
+
+print('Resultados guardados en date.json')
+
+# Encuentra los botones de descarga
+links = driver.find_elements(By.CSS_SELECTOR, '.asociada-link.ico-csv')
+
+# Extraer los hrefs y descargar los archivos
+for idx, link in enumerate(links):
+  href = link.get_attribute('href')
+  response = requests.get(href)
   
-  print('Resultados guardados en date.json')
+  # Guardar cada archivo con un nombre único
+  if idx == 0:
+      filename = 'clasificaciones.csv'
+  else:
+      filename = 'partidos.csv'
 
-  # Encuentra los botones de descarga
-  links = driver.find_elements(By.CSS_SELECTOR, '.asociada-link.ico-csv')
+  with open(filename, 'wb') as file:
+      file.write(response.content)
+  
+  print(f'Archivo descargado como {filename}')
 
-  # Extraer los hrefs y descargar los archivos
-  for idx, link in enumerate(links):
-    href = link.get_attribute('href')
-    response = requests.get(href)
-    
-    # Guardar cada archivo con un nombre único
-    if idx == 0:
-       filename = 'clasificaciones.csv'
-    else:
-       filename = 'partidos.csv'
+get_clasifications()
 
-    with open(filename, 'wb') as file:
-        file.write(response.content)
-    
-    print(f'Archivo descargado como {filename}')
-
-  get_clasifications()
-
-  get_matches()
+get_matches()
   
 # Cierra el navegador
 driver.quit()
